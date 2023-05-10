@@ -203,24 +203,9 @@ footer {
     font-size: 0.75rem;
 }
 
+/* Hide scroll to top button on smaller screens */
 @media (max-width: 992px) {
-    .btn-floating-mobile {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      z-index: 9999;
-      background-color: rgba(0, 0, 0, 0.6);
-      color: white;
-      border: none;
-      width: 40px;
-      height: 40px;
-      padding: 0;
-      font-size: 20px;
-      opacity: 0.8;
-      transition: opacity 0.3s;
+    #scrollToTopBtn {
+        display: none;
     }
-  
-    .btn-floating-mobile:hover {
-      opacity: 1;
-    }
-  }
+}

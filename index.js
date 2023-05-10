@@ -157,7 +157,7 @@ $(document).ready(function() {
     var eventCalendar = $("#event-calendar-collapse");
 
     $(window).scroll(function() {
-        if ($(window).width() >= 992) { // Adjust the breakpoint as needed
+        if ($(window).width() >= 992) {
             eventCalendar.collapse('hide');
         }
     });
