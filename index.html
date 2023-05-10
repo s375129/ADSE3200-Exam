@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-Edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta property="og:site_name" content="craigslist">
+    <meta property="og:title" content="craigslist: new york jobs, apartments, for sale, services, community, and events">
+    <meta name="description" content="craigslist provides local classifieds and forums for jobs, housing, for sale, services, local community, and events">
+    <meta property="og:description" content="craigslist provides local classifieds and forums for jobs, housing, for sale, services, local community, and events">
+    <title>craigslist: new york jobs, apartments, for sale, services, community, and events</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <!-- Used instead of alert() -->
+    <span class="gradient-span"></span>
+    <span id="message"></span>
+    
+    <!-- Main container -->
+    <div class="container mt-4 mb-4">
+        <div class="row gx-4">
+            <!-- Column 1: left -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+                <!-- logo -->
+                <div class="text-center">
+                    <h2 class="mb-5">
+                        <a href="https://www.craigslist.org/about/sites">
+                            <img src="logo.png" alt="Craigslist" class="craigslist-logo">
+                        </a>
+                    </h2>
+                </div>
+                
+                <span class="follow-panel">
+                    <!-- buttons -->
+                    <a href="https://post.craigslist.org/c/nyc" class="btn btn-post btn-sm d-block w-100 mb-2"><i class="fa fa-pencil"></i> Create a Posting</a>
+                    <a href="https://accounts.craigslist.org/login/home" class="btn btn-primary btn-sm d-block w-100 mb-2"><i class="fa fa-user"></i> My Account</a>
+
+                    <!-- search -->
+                    <form class="mt-5">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="search-input" placeholder="Search craigslist..">
+                            <button class="btn btn-outline-secondary" type="button" onclick="search()"><i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
+
+                    <!-- event calendar -->
+                    <div class="dropdown mt-5">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle w-100" type="button" id="event-calendar-dropdown" data-bs-toggle="collapse" data-bs-target="#event-calendar-collapse" aria-expanded="false" aria-controls="event-calendar-collapse">
+                            <i class="fa fa-calendar"></i> Event Calendar</button>
+                        <div class="collapse" id="event-calendar-collapse">
+                            <table class="table table-bordered table-responsive" id="event-calendar">
+                                <thead>
+                                <tr class="table-primary">
+                                    <th scope="col">M</th>
+                                    <th scope="col">T</th>
+                                    <th scope="col">W</th>
+                                    <th scope="col">T</th>
+                                    <th scope="col">F</th>
+                                    <th scope="col">S</th>
+                                    <th scope="col">S</th>
+                                </tr>
+                                </thead>
+                                <tbody id="calendar-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- User Resources -->
+                    <div class="dropdown mt-4">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle d-block w-100" type="button" id="user-res-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-users-gear"></i> User Resources
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="user-res-dropdown">
+                            <li><a class="dropdown-item" href="https://www.craigslist.org/about/craigslist_app"><i class="fa fa-mobile-alt"></i> Craigslist App</a></li>
+                            <li><a class="dropdown-item" href="https://www.craigslist.org/about/help/"><i class="fa fa-question-circle"></i> Help, FAQ, Abuse, Legal</a></li>
+                            <li><a class="dropdown-item" href="https://www.craigslist.org/about/scams"><i class="fa fa-user-shield"></i> Avoid Scams &amp; Fraud</a></li>
+                            <li><a class="dropdown-item" href="https://www.craigslist.org/about/safety"><i class="fa fa-user-check"></i> Personal Safety Tips</a></li>
+                            <li><a class="dropdown-item" href="https://www.craigslist.org/about/terms.of.use"><i class="fa fa-file-contract"></i> Terms of Use</a></li>
+                            <li><a class="dropdown-item" href="https://www.craigslist.org/about/privacy.policy"><i class="fa fa-shield-alt"></i> Privacy Policy</a></li>
+                            <li><a class="dropdown-item" href="https://www.craigslist.org/about/help/system-status"><i class="fa fa-cogs"></i> System Status</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- About Craigslist -->
+                    <div class="dropdown mt-4 mb-4">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle d-block w-100" type="button" id="about-craigslist-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-info-circle"></i> About Craigslist
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="about-craigslist-dropdown">
+                            <li><a class="dropdown-item" href="https://www.craigslist.org/about/"><i class="fa fa-info"></i> About Craigslist</a></li>
+                            <li><a class="dropdown-item" href="https://www.craigslist.org/about/craigslist_is_hiring"><i class="fa fa-briefcase"></i> Craigslist is Hiring</a></li>
+                            <li><a class="dropdown-item" href="https://www.craigslist.org/about/open_source"><i class="fa fa-code"></i> Craigslist Open Source</a></li>
+                            <li><a class="dropdown-item" href="http://blog.craigslist.org/"><i class="fa fa-blog"></i> Craigslist Blog</a></li>
+                            <li><a class="dropdown-item" href="https://www.craigslist.org/about/best/all/"><i class="fa fa-award"></i> Best-of-Craigslist</a></li>
+                            <li><a class="dropdown-item" href="http://www.craigslistjoe.com/"><i class="fa fa-film"></i> "Craigslist Joe"</a></li>
+                            <li><a class="dropdown-item" href="https://craignewmarkphilanthropies.org/"><i class="fa fa-hands-helping"></i> Craig Newmark Philanthropies</a></li>
+                        </ul>
+                    </div>
+
+
+                    <hr class="my-4">
+
+                    <!-- collapse and expand menus -->
+                    <div class="row mt-4">
+                        <div class="col-sm-6 mb-2">
+                            <button class="btn btn-secondary btn-sm d-block w-100 btn-scale-down btn-transition" onclick="collapseAllMenus()" title="Collapse all menus"><i class="fa fa-compress"></i> All</button>
+                        </div>
+                        <div class="col-sm-6 mb-2">
+                            <button class="btn btn-secondary btn-sm d-block w-100 btn-scale-up btn-transition" onclick="expandAllMenus()" title="Expand all menus"><i class="fa fa-expand"></i> All</button>
+                        </div>
+                    </div>
+
+                    <!-- scroll to top -->
+                    <button id="scrollToTopBtn" onclick="scrollToTop()" class="btn btn-secondary btn-sm d-block w-100" title="Scroll up to the top"><i class="fa fa-arrow-up"></i>  Back to Top</button>
+                </div>
+            </span>
+
+
+            <!-- Column 2: middle -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" id="middle-column">
+                <!-- New York title with sublinks -->
+                <div class="geo-sublinks-container mt-3">
+                    <h2 class="mb-2 geo-sublinks-header position-relative" title="New York listings - Click for geo sublinks" data-bs-toggle="collapse" data-bs-target="#geo-sublinks" aria-expanded="false" aria-controls="geo-sublinks">
+                        <i class="fa fa-globe globe-icon"></i>
+                        <span class="sublinks-text">New York</span>
+                        <i class="fa fa-arrow-down custom-arrow-icon"></i>
+                        <div class="hitbox-highlight position-absolute"></div>
+                    </h2>
+                    
+                    <div id="geo-sublinks" class="collapse">
+                        <h3 class="small text-muted sublinks-text">Sublinks</h3>
+                        <div class="d-flex flex-wrap justify-content-center">
+                        <a href="/mnh/" title="manhattan" class="btn btn-secondary btn-sm m-1">mnh</a>
+                        <a href="/brk/" title="brooklyn" class="btn btn-secondary btn-sm m-1">brk</a>
+                        <a href="/que/" title="queens" class="btn btn-secondary btn-sm m-1">que</a>
+                        <a href="/brx/" title="bronx" class="btn btn-secondary btn-sm m-1">brx</a>
+                        <a href="/stn/" title="staten island" class="btn btn-secondary btn-sm m-1">stn</a>
+                        <a href="/jsy/" title="new jersey" class="btn btn-secondary btn-sm m-1">jsy</a>
+                        <a href="/lgi/" title="long island" class="btn btn-secondary btn-sm m-1">lgi</a>
+                        <a href="/wch/" title="westchester" class="btn btn-secondary btn-sm m-1">wch</a>
+                        <a href="/fct/" title="fairfield" class="btn btn-secondary btn-sm m-1">fct</a>
+                        </div>
+                    </div>
+                </div>
+                  
+
+                <!-- New row inside center column for listings -->
+                <div class="row mt-5">
+                    <!-- community -->
+                    <div class="col-md-6 mb-4">
+                        <button class="btn btn-listing w-100" type="button" data-bs-toggle="collapse" data-bs-target="#communityCollapse" aria-expanded="false" aria-controls="communityCollapse">
+                            <i class="fas fa-users"></i> Community 
+                            <i class="fas fa-chevron-down arrow-icon"></i>
+                        </button>                                                                          
+                        <div class="collapse" id="communityCollapse">
+                            <div class="card card-body">
+                                <ul class="list-unstyled modern-links">
+                                    <li><a href="#">Activities <i class="fas fa-running"></i></a></li>
+                                    <li><a href="#">Artists <i class="fas fa-paint-brush"></i></a></li>
+                                    <li><a href="#">Childcare <i class="fas fa-baby"></i></a></li>
+                                    <li><a href="#">Classes <i class="fas fa-graduation-cap"></i></a></li>
+                                    <li><a href="#">Events <i class="far fa-calendar-alt"></i></a></li>
+                                    <li><a href="#">General <i class="fas fa-info-circle"></i></a></li>
+                                    <li><a href="#">Groups <i class="fas fa-users"></i></a></li>
+                                    <li><a href="#">Local News <i class="far fa-newspaper"></i></a></li>
+                                    <li><a href="#">Lost+Found <i class="fas fa-search"></i></a></li>
+                                    <li><a href="#">Missed Connections <i class="fas fa-handshake"></i></a></li>
+                                    <li><a href="#">Musicians <i class="fas fa-music"></i></a></li>
+                                    <li><a href="#">Pets <i class="fas fa-paw"></i></a></li>
+                                    <li><a href="#">Politics <i class="fas fa-globe-americas"></i></a></li>
+                                    <li><a href="#">Rants &amp; Raves <i class="fas fa-bullhorn"></i></a></li>
+                                    <li><a href="#">Rideshare <i class="fas fa-car"></i></a></li>
+                                    <li><a href="#">Volunteers <i class="fas fa-hands-helping"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- housing -->
+                    <div class="col-md-6 mb-4">
+                        <button class="btn btn-listing w-100" type="button" data-bs-toggle="collapse" data-bs-target="#housingCollapse" aria-expanded="false" aria-controls="housingCollapse">
+                            <i class="fas fa-home"></i> Housing
+                            <i class="fas fa-chevron-down ml-auto arrow-icon"></i>
+                        </button>                                                   
+                        <div class="collapse" id="housingCollapse">
+                            <div class="card card-body">
+                                <ul class="list-unstyled modern-links">
+                                    <li><a href="#">Apts / Housing <i class="fas fa-building"></i></a></li>
+                                    <li><a href="#">Housing Swap <i class="fas fa-exchange-alt"></i></a></li>
+                                    <li><a href="#">Housing Wanted <i class="fas fa-home"></i></a></li>
+                                    <li><a href="#">Office / Commercial <i class="fas fa-building"></i></a></li>
+                                    <li><a href="#">Parking / Storage <i class="fas fa-car"></i></a></li>
+                                    <li><a href="#">Real Estate for Sale <i class="fas fa-home"></i></a></li>
+                                    <li><a href="#">Rooms / Shared <i class="fas fa-bed"></i></a></li>
+                                    <li><a href="#">Rooms Wanted <i class="fas fa-user"></i></a></li>
+                                    <li><a href="#">Sublets / Temporary <i class="fas fa-home"></i></a></li>
+                                    <li><a href="#">Vacation Rentals <i class="fas fa-hotel"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- jobs -->
+                    <div class="col-md-6 mb-4">
+                        <button class="btn btn-listing w-100" type="button" data-bs-toggle="collapse" data-bs-target="#jobsCollapse" aria-expanded="false" aria-controls="jobsCollapse">
+                            <i class="fas fa-briefcase"></i> Jobs 
+                            <i class="fas fa-chevron-down ml-auto arrow-icon"></i>
+                        </button>                          
+                        <div class="collapse" id="jobsCollapse">
+                            <div class="card card-body">
+                                <ul class="list-unstyled modern-links">
+                                    <li><a href="#">Accounting+Finance <i class="fas fa-briefcase"></i></a></li>
+                                    <li><a href="#">Admin / Office <i class="fas fa-briefcase"></i></a></li>
+                                    <li><a href="#">Arch / Engineering <i class="fas fa-briefcase"></i></a></li>
+                                    <li><a href="#">Art / Media / Design <i class="fas fa-palette"></i></a></li>
+                                    <li><a href="#">Biotech / Science <i class="fas fa-flask"></i></a></li>
+                                    <li><a href="#">Business / Mgmt <i class="fas fa-briefcase"></i></a></li>
+                                    <li><a href="#">Customer Service <i class="fas fa-headset"></i></a></li>
+                                    <li><a href="#">Education <i class="fas fa-chalkboard-teacher"></i></a></li>
+                                    <li><a href="#">Etc / Misc <i class="fas fa-ellipsis-h"></i></a></li>
+                                    <li><a href="#">Food / Bev / Hosp <i class="fas fa-utensils"></i></a></li>
+                                    <li><a href="#">General Labor <i class="fas fa-hard-hat"></i></a></li>
+                                    <li><a href="#">Government <i class="fas fa-university"></i></a></li>
+                                    <li><a href="#">Human Resources <i class="fas fa-users"></i></a></li>
+                                    <li><a href="#">Legal / Paralegal <i class="fas fa-balance-scale"></i></a></li>
+                                    <li><a href="#">Manufacturing <i class="fas fa-industry"></i></a></li>
+                                    <li><a href="#">Marketing / PR / Ad <i class="fas fa-bullhorn"></i></a></li>
+                                    <li><a href="#">Medical / Health <i class="fas fa-medkit"></i></a></li>
+                                    <li><a href="#">Nonprofit Sector <i class="fas fa-hands-helping"></i></a></li>
+                                    <li><a href="#">Real Estate <i class="fas fa-building"></i></a></li>
+                                    <li><a href="#">Retail / Wholesale <i class="fas fa-store"></i></a></li>
+                                    <li><a href="#">Sales / Biz Dev <i class="fas fa-chart-line"></i></a></li>
+                                    <li><a href="#">Salon / Spa / Fitness <i class="fas fa-cut"></i></a></li>
+                                    <li><a href="#">Security <i class="fas fa-shield-alt"></i></a></li>
+                                    <li><a href="#">Skilled Trade / Craft <i class="fas fa-tools"></i></a></li>
+                                    <li><a href="#">Software / QA / DBA <i class="fas fa-laptop-code"></i></a></li>
+                                    <li><a href="#">Systems / Network <i class="fas fa-network-wired"></i></a></li>
+                                    <li><a href="#">Technical Support <i class="fas fa-headphones"></i></a></li>
+                                    <li><a href="#">Transport <i class="fas fa-truck"></i></a></li>
+                                    <li><a href="#">TV / Film / Video <i class="fas fa-video"></i></a></li>
+                                    <li><a href="#">Web / Info Design <i class="fas fa-globe"></i></a></li>
+                                    <li><a href="#">Writing / Editing <i class="fas fa-pencil-alt"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- services -->
+                    <div class="col-md-6 mb-4">
+                        <button class="btn btn-listing w-100" type="button" data-bs-toggle="collapse" data-bs-target="#servicesCollapse" aria-expanded="false" aria-controls="servicesCollapse">
+                            <i class="fas fa-wrench"></i> Services <i class="fas fa-chevron-down ml-auto arrow-icon"></i>
+                        </button>
+                        <div class="collapse" id="servicesCollapse">
+                            <div class="card card-body">
+                                <ul class="list-unstyled modern-links">
+                                    <li><a href="#">Automotive <i class="fas fa-car"></i></a></li>
+                                    <li><a href="#">Beauty <i class="fas fa-spa"></i></a></li>
+                                    <li><a href="#">Cell/Mobile <i class="fas fa-mobile-alt"></i></a></li>
+                                    <li><a href="#">Computer <i class="fas fa-laptop"></i></a></li>
+                                    <li><a href="#">Creative <i class="fas fa-palette"></i></a></li>
+                                    <li><a href="#">Cycle <i class="fas fa-bicycle"></i></a></li>
+                                    <li><a href="#">Event <i class="fas fa-calendar-alt"></i></a></li>
+                                    <li><a href="#">Farm+Garden <i class="fas fa-seedling"></i></a></li>
+                                    <li><a href="#">Financial <i class="fas fa-money-bill"></i></a></li>
+                                    <li><a href="#">Health/Well <i class="fas fa-heartbeat"></i></a></li>
+                                    <li><a href="#">Household <i class="fas fa-home"></i></a></li>
+                                    <li><a href="#">Labor/Move <i class="fas fa-dolly"></i></a></li>
+                                    <li><a href="#">Legal <i class="fas fa-balance-scale"></i></a></li>
+                                    <li><a href="#">Lessons <i class="fas fa-chalkboard"></i></a></li>
+                                    <li><a href="#">Marine <i class="fas fa-anchor"></i></a></li>
+                                    <li><a href="#">Pet <i class="fas fa-paw"></i></a></li>
+                                    <li><a href="#">Real Estate <i class="fas fa-building"></i></a></li>
+                                    <li><a href="#">Skilled Trade <i class="fas fa-tools"></i></a></li>
+                                    <li><a href="#">Sm Biz Ads <i class="fas fa-ad"></i></a></li>
+                                    <li><a href="#">Travel/Vac <i class="fas fa-suitcase"></i></a></li>
+                                    <li><a href="#">Write/Ed/Tran <i class="fas fa-pencil-alt"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>                      
+
+                    <!-- for sale -->
+                    <div class="col-md-6 mb-4">
+                        <button class="btn btn-listing w-100" type="button" data-bs-toggle="collapse" data-bs-target="#forSaleCollapse" aria-expanded="false" aria-controls="forSaleCollapse">
+                            <i class="fas fa-tag"></i> For Sale <i class="fas fa-chevron-down ml-auto arrow-icon"></i>
+                        </button>
+                        <div class="collapse" id="forSaleCollapse">
+                            <div class="card card-body">
+                                <ul class="list-unstyled modern-links">
+                                    <li><a href="#">Antiques <i class="fas fa-scroll"></i></a></li>
+                                    <li><a href="#">Appliances <i class="fas fa-blender"></i></a></li>
+                                    <li><a href="#">Arts+Crafts <i class="fas fa-paint-brush"></i></a></li>
+                                    <li><a href="#">ATV/UTV/Sno <i class="fas fa-mountain"></i></a></li>
+                                    <li><a href="#">Auto Parts <i class="fas fa-car"></i></a></li>
+                                    <li><a href="#">Aviation <i class="fas fa-plane"></i></a></li>
+                                    <li><a href="#">Baby+Kid <i class="fas fa-baby"></i></a></li>
+                                    <li><a href="#">Barter <i class="fas fa-exchange-alt"></i></a></li>
+                                    <li><a href="#">Beauty+Hlth <i class="fas fa-heart"></i></a></li>
+                                    <li><a href="#">Bike Parts <i class="fas fa-biking"></i></a></li>
+                                    <li><a href="#">Bikes <i class="fas fa-bicycle"></i></a></li>
+                                    <li><a href="#">Boat Parts <i class="fas fa-ship"></i></a></li>
+                                    <li><a href="#">Boats <i class="fas fa-ship"></i></a></li>
+                                    <li><a href="#">Books <i class="fas fa-book"></i></a></li>
+                                    <li><a href="#">Business <i class="fas fa-building"></i></a></li>
+                                    <li><a href="#">Cars+Trucks <i class="fas fa-car-side"></i></a></li>
+                                    <li><a href="#">CDs/DVD/VHS <i class="fas fa-compact-disc"></i></a></li>
+                                    <li><a href="#">Cell Phones <i class="fas fa-mobile-alt"></i></a></li>
+                                    <li><a href="#">Clothes+Acc <i class="fas fa-tshirt"></i></a></li>
+                                    <li><a href="#">Collectibles <i class="fas fa-archive"></i></a></li>
+                                    <li><a href="#">Computer Parts <i class="fas fa-microchip"></i></a></li>
+                                    <li><a href="#">Computers <i class="fas fa-laptop"></i></a></li>
+                                    <li><a href="#">Electronics <i class="fas fa-tv"></i></a></li>
+                                    <li><a href="#">Farm+Garden <i class="fas fa-tractor"></i></a></li>
+                                    <li><a href="#">Free <i class="fas fa-hand-holding"></i></a></li>
+                                    <li><a href="#">Furniture <i class="fas fa-couch"></i></a></li>
+                                    <li><a href="#">Garage Sale <i class="fas fa-store-alt"></i></a></li>
+                                    <li><a href="#">General <i class="fas fa-ellipsis-h"></i></a></li>
+                                    <li><a href="#">Heavy Equip <i class="fas fa-truck-loading"></i></a></li>
+                                    <li><a href="#">Household <i class="fas fa-home"></i></a></li>
+                                    <li><a href="#">Jewelry <i class="fas fa-ring"></i></a></li>
+                                    <li><a href="#">Materials <i class="fas fa-cash-register"></i></a></li>
+                                    <li><a href="#">Motorcycle Parts <i class="fas fa-motorcycle"></i></a></li>
+                                    <li><a href="#">Motorcycles <i class="fas fa-motorcycle"></i></a></li>
+                                    <li><a href="#">Music Instr <i class="fas fa-guitar"></i></a></li>
+                                    <li><a href="#">Photo+Video <i class="fas fa-camera"></i></a></li>
+                                    <li><a href="#">RVs+Camp <i class="fas fa-campground"></i></a></li>
+                                    <li><a href="#">Sporting <i class="fas fa-football-ball"></i></a></li>
+                                    <li><a href="#">Tickets <i class="fas fa-ticket-alt"></i></a></li>
+                                    <li><a href="#">Tools <i class="fas fa-tools"></i></a></li>
+                                    <li><a href="#">Toys+Games <i class="fas fa-gamepad"></i></a></li>
+                                    <li><a href="#">Trailers <i class="fas fa-trailer"></i></a></li>
+                                    <li><a href="#">Video Gaming <i class="fas fa-gamepad"></i></a></li>
+                                    <li><a href="#">Wanted <i class="fas fa-search"></i></a></li>
+                                    <li><a href="#">Wheels+Tires <i class="fas fa-car-side"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>                 
+
+                    <!-- discussion forums -->
+                    <div class="col-md-6 mb-4">
+                        <button class="btn btn-listing w-100" type="button" data-bs-toggle="collapse" data-bs-target="#discussionCollapse" aria-expanded="false" aria-controls="discussionCollapse">
+                            <i class="fas fa-comments"></i> Discussion Forums <i class="fas fa-chevron-down ml-auto arrow-icon"></i>
+                        </button>
+                        <div class="collapse" id="discussionCollapse">
+                            <div class="card card-body">
+                                <ul class="list-unstyled modern-links">
+                                    <li><a href="#">Apple <i class="fab fa-apple"></i></a></li>
+                                    <li><a href="#">Arts <i class="fas fa-paint-brush"></i></a></li>
+                                    <li><a href="#">Atheist <i class="fas fa-praying-hands"></i></a></li>
+                                    <li><a href="#">Autos <i class="fas fa-car"></i></a></li>
+                                    <li><a href="#">Beauty <i class="fas fa-spa"></i></a></li>
+                                    <li><a href="#">Bikes <i class="fas fa-bicycle"></i></a></li>
+                                    <li><a href="#">Celebs <i class="fas fa-star"></i></a></li>
+                                    <li><a href="#">Comp <i class="fas fa-desktop"></i></a></li>
+                                    <li><a href="#">Cosmos <i class="fas fa-globe"></i></a></li>
+                                    <li><a href="#">Diet <i class="fas fa-utensils"></i></a></li>
+                                    <li><a href="#">Divorce <i class="fas fa-heart-broken"></i></a></li>
+                                    <li><a href="#">Dying <i class="fas fa-skull-crossbones"></i></a></li>
+                                    <li><a href="#">Eco <i class="fas fa-leaf"></i></a></li>
+                                    <li><a href="#">Feedbk <i class="fas fa-comments"></i></a></li>
+                                    <li><a href="#">Film <i class="fas fa-film"></i></a></li>
+                                    <li><a href="#">Fixit <i class="fas fa-wrench"></i></a></li>
+                                    <li><a href="#">Food <i class="fas fa-utensils"></i></a></li>
+                                    <li><a href="#">Frugal <i class="fas fa-hand-holding-usd"></i></a></li>
+                                    <li><a href="#">Gaming <i class="fas fa-gamepad"></i></a></li>
+                                    <li><a href="#">Garden <i class="fas fa-seedling"></i></a></li>
+                                    <li><a href="#">Haiku <i class="fas fa-feather-alt"></i></a></li>
+                                    <li><a href="#">Help <i class="fas fa-hands-helping"></i></a></li>
+                                    <li><a href="#">History <i class="fas fa-landmark"></i></a></li>
+                                    <li><a href="#">Housing <i class="fas fa-home"></i></a></li>
+                                    <li><a href="#">Jobs <i class="fas fa-briefcase"></i></a></li>
+                                    <li><a href="#">Jokes <i class="fas fa-laugh"></i></a></li>
+                                    <li><a href="#">Legal <i class="fas fa-balance-scale"></i></a></li>
+                                    <li><a href="#">Manners <i class="fas fa-hands"></i></a></li>
+                                    <li><a href="#">Marriage <i class="fas fa-ring"></i></a></li>
+                                    <li><a href="#">Money <i class="fas fa-money-bill-wave"></i></a></li>
+                                    <li><a href="#">Music <i class="fas fa-music"></i></a></li>
+                                    <li><a href="#">Open <i class="fas fa-folder-open"></i></a></li>
+                                    <li><a href="#">Parent <i class="fas fa-child"></i></a></li>
+                                    <li><a href="#">Pets <i class="fas fa-paw"></i></a></li>
+                                    <li><a href="#">Philos <i class="fas fa-brain"></i></a></li>
+                                    <li><a href="#">Photo <i class="fas fa-camera"></i></a></li>
+                                    <li><a href="#">Politics <i class="fas fa-landmark"></i></a></li>
+                                    <li><a href="#">Psych <i class="fas fa-brain"></i></a></li>
+                                    <li><a href="#">Recover <i class="fas fa-heartbeat"></i></a></li>
+                                    <li><a href="#">Religion <i class="fas fa-praying-hands"></i></a></li>
+                                    <li><a href="#">Rofo <i class="fas fa-comments"></i></a></li>
+                                    <li><a href="#">Science <i class="fas fa-atom"></i></a></li>
+                                    <li><a href="#">Spirit <i class="fas fa-feather-alt"></i></a></li>
+                                    <li><a href="#">Sports <i class="fas fa-futbol"></i></a></li>
+                                    <li><a href="#">Super <i class="fas fa-star"></i></a></li>
+                                    <li><a href="#">Tax <i class="fas fa-file-invoice-dollar"></i></a></li>
+                                    <li><a href="#">Travel <i class="fas fa-plane"></i></a></li>
+                                    <li><a href="#">TV <i class="fas fa-tv"></i></a></li>
+                                    <li><a href="#">Vegan <i class="fas fa-leaf"></i></a></li>
+                                    <li><a href="#">Words <i class="fas fa-font"></i></a></li>
+                                    <li><a href="#">Writing <i class="fas fa-pen"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>                    
+
+                    <!-- gigs -->
+                    <div class="col-md-6 mb-4">
+                        <button class="btn btn-listing w-100" type="button" data-bs-toggle="collapse" data-bs-target="#gigsCollapse" aria-expanded="false" aria-controls="gigsCollapse">
+                            <i class="fas fa-handshake"></i> Gigs <i class="fas fa-chevron-down ml-auto arrow-icon"></i>
+                        </button>
+                        <div class="collapse" id="gigsCollapse">
+                            <div class="card card-body">
+                                <ul class="list-unstyled modern-links">
+                                    <li><a href="#">Computer <i class="fas fa-laptop"></i></a></li>
+                                    <li><a href="#">Creative <i class="fas fa-palette"></i></a></li>
+                                    <li><a href="#">Crew <i class="fas fa-users"></i></a></li>
+                                    <li><a href="#">Domestic <i class="fas fa-home"></i></a></li>
+                                    <li><a href="#">Event <i class="fas fa-calendar-alt"></i></a></li>
+                                    <li><a href="#">Labor <i class="fas fa-hard-hat"></i></a></li>
+                                    <li><a href="#">Talent <i class="fas fa-microphone-alt"></i></a></li>
+                                    <li><a href="#">Writing <i class="fas fa-pen"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>                    
+
+                    <!-- resumes -->
+                    <div class="col-md-6 mb-4">
+                        <button class="btn btn-listing w-100" type="button" data-bs-toggle="collapse" data-bs-target="#resumesCollapse" aria-expanded="false" aria-controls="resumesCollapse">
+                            <i class="fas fa-file-alt"></i> Resumes <i class="fas fa-chevron-down ml-auto arrow-icon"></i>
+                        </button>
+                        <div class="collapse" id="resumesCollapse">
+                            <div class="card card-body">
+                                <p class="text-muted">Nothing to show.</p>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+
+
+			<!-- Column 3: right -->
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+                <div class="text-center">
+                        <h2 class="mb-4" title="Language and Geo Links below"><i class="fa fa-location-dot"></i></h2>
+                </div>
+
+                <!-- language -->
+                <label class="input-group-text mt-5" for="chlang"><i class="fa fa-language" style="margin-right: 7px;"></i>Language</label>
+                <select class="form-select mb-4" id="chlang">
+                    <option value="?lang=da&amp;setlang=1">Dansk</option>
+                    <option value="?lang=de&amp;setlang=1">Deutsch</option>
+                    <option selected value="?lang=en&amp;cc=us&amp;setlang=1">English</option>
+                    <option value="?lang=es&amp;cc=mx&amp;setlang=1">Español</option>
+                    <option value="?lang=fr&amp;setlang=1">Français</option>
+                    <option value="?lang=it&amp;setlang=1">Italiano</option>
+                    <option value="?lang=pt&amp;setlang=1">Português</option>
+                    <option value="?lang=fi&amp;setlang=1">Suomi</option>
+                    <option value="?lang=sv&amp;setlang=1">Svenska</option>
+                    <option value="?lang=vi&amp;setlang=1">Tiếng Việt</option>
+                    <option value="?lang=tr&amp;setlang=1">Türkçe</option>
+                    <option value="?lang=ru&amp;setlang=1">Русский</option>
+                    <option value="?lang=zh&amp;setlang=1">中文</option>
+                    <option value="?lang=ja&amp;setlang=1">日本語</option>
+                    <option value="?lang=ko&amp;setlang=1">한국말</option>
+                </select>
+
+                <!-- geo links -->
+                <label class="input-group-text" for="geoLinksAccordion"><i class="fa fa-globe" style="margin-right: 7px;"></i>Geo Links</label>
+                <div class="accordion" id="geoLinksAccordion">
+                    <!-- nearby -->
+                    <div class="accordion-item">
+                        <h5 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nearby">Nearby</button>
+                        </h5>
+                        <div id="nearby" class="accordion-collapse collapse" data-bs-parent="#geoLinksAccordion">
+                            <div class="accordion-body">
+                                <ul class="list-unstyled modern-links">
+                                    <li><a href="//albany.craigslist.org">Albany</a></li>
+                                    <li><a href="//allentown.craigslist.org">Allentown</a></li>
+                                    <li><a href="//baltimore.craigslist.org">Baltimore</a></li>
+                                    <li><a href="//binghamton.craigslist.org">Binghamton</a></li>
+                                    <li onclick="alert('Showing only 4 links for demonstration purposes.');"><a href="#">...</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- us cities -->
+                    <div class="accordion-item">
+                        <h5 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#usCities">US Cities</button>
+                        </h5>
+                        <div id="usCities" class="accordion-collapse collapse" data-bs-parent="#geoLinksAccordion">
+                            <div class="accordion-body">
+                                <ul class="list-unstyled modern-links">
+                                    <li><a href="http://atlanta.craigslist.org">Atlanta</a></li>
+                                    <li><a href="http://austin.craigslist.org">Austin</a></li>
+                                    <li><a href="http://boston.craigslist.org">Boston</a></li>
+                                    <li><a href="http://chicago.craigslist.org">Chicago</a></li>
+                                    <li onclick="alert('Showing only 4 links for demonstration purposes.');"><a href="#">...</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- us states -->
+                    <div class="accordion-item">
+                        <h5 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#usStates">US States</button>
+                        </h5>
+                        <div id="usStates" class="accordion-collapse collapse" data-bs-parent="#geoLinksAccordion">
+                            <div class="accordion-body">
+                                <ul class="list-unstyled modern-links">
+                                    <li><a href="//geo.craigslist.org/iso/us/al">Alabama</a></li>
+                                    <li><a href="//geo.craigslist.org/iso/us/ak">Alaska</a></li>
+                                    <li><a href="//geo.craigslist.org/iso/us/az">Arizona</a></li>
+                                    <li><a href="//geo.craigslist.org/iso/us/ar">Arkansas</a></li>
+                                    <li onclick="alert('Showing only 4 links for demonstration purposes.');"><a href="#">...</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- canada -->
+                    <div class="accordion-item">
+                        <h5 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#canada">Canada</button>
+                        </h5>
+                        <div id="canada" class="accordion-collapse collapse" data-bs-parent="#geoLinksAccordion">
+                            <div class="accordion-body">
+                                <ul class="list-unstyled modern-links">
+                                    <li><a href="//calgary.craigslist.org">Calgary</a></li>
+                                    <li><a href="//edmonton.craigslist.org">Edmonton</a></li>
+                                    <li><a href="//halifax.craigslist.org">Halifax</a></li>
+                                    <li><a href="//montreal.craigslist.org">Montreal</a></li>
+                                    <li onclick="alert('Showing only 4 links for demonstration purposes.');"><a href="#">...</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- worldwide -->
+                    <div class="accordion-item">
+                        <h5 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#worldwide">Worldwide</button>
+                        </h5>
+                        <div id="worldwide" class="accordion-collapse collapse" data-bs-parent="#geoLinksAccordion">
+                            <div class="accordion-body">
+                                <ul class="list-unstyled modern-links">
+                                    <li onclick="alert('This would then follow the same principles as the elements above.');"><a href="#">...</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light py-1">
+        <div class="container mb-0">
+            <div class="row justify-content-center text-center smaller-font">
+                <div class="col-12">
+                    <span class="text-muted small" title="Not really craigslist copyright, it's mine!">&copy; 2023 craigslist</span>
+                </div>
+                <div class="d-flex flex-wrap justify-content-around">
+                    <div class="p-1">
+                        <a href="https://www.craigslist.org/about/help/" class="text-decoration-none small">
+                            <i class="fas fa-question-circle"></i> Help
+                        </a>
+                    </div>
+                    <div class="p-1">
+                        <a href="https://www.craigslist.org/about/scams" class="text-decoration-none small">
+                            <i class="fas fa-shield-alt"></i> Safety
+                        </a>
+                    </div>
+                    <div class="p-1">
+                        <a href="https://www.craigslist.org/about/privacy.policy" class="text-decoration-none small">
+                            <i class="fas fa-user-secret"></i> Privacy
+                        </a>
+                    </div>
+                    <div class="p-1">
+                        <a href="https://forums.craigslist.org/?forumID=8" class="text-decoration-none small">
+                            <i class="fas fa-comments"></i> Feedback
+                        </a>
+                    </div>
+                    <div class="p-1">
+                        <a href="https://www.craigslist.org/about/terms.of.use" class="text-decoration-none small">
+                            <i class="fas fa-file-contract"></i> Terms
+                        </a>
+                    </div>
+                    <div class="p-1">
+                        <a href="https://www.craigslist.org/about/" class="text-decoration-none small">
+                            <i class="fas fa-info-circle"></i> About
+                        </a>
+                    </div>
+                    <div class="p-1">
+                        <a href="https://www.craigslist.org/about/craigslist_app" class="text-decoration-none small">
+                            <i class="fas fa-mobile-alt"></i> App
+                        </a>
+                    </div>
+                    <div class="p-1">
+                        <a href="https://www.craigslist.org/about/craigslist_is_hiring" class="text-decoration-none small">
+                            <i class="fas fa-briefcase"></i> Hiring
+                        </a>
+                    </div>
+                    <div class="p-1">
+                        <a href="https://newyork.craigslist.org/sitemap.html" class="text-decoration-none small">
+                            <i class="fas fa-sitemap"></i> Sitemap
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/0faf9dc4b0.js"></script>
+    <script type="application/javascript" src="/index.js"></script>
+    <script>
+        const currentMonth = new Date().getMonth() + 1; // JS months: 0-11
+        const currentYear = new Date().getFullYear();
+        generateCalendar(currentMonth, currentYear);
+    </script>
+</body>
+</html>

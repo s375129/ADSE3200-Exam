@@ -1,0 +1,226 @@
+body {
+    font-family: sans-serif;
+}
+
+/* That violet gradient on the top of the page */
+.gradient-span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-image: linear-gradient(to bottom, #c7b9d9, white);
+    padding: 10px;
+    z-index: -9999;
+}
+
+/* Make the buttons on the left follow the user */
+.follow-panel {
+    position: sticky;
+    top: 100px;
+    height: 100vh;
+}  
+
+/* Custom make a posting button */
+.btn.btn-post {
+    background-color: #6f5499;
+    color: white;
+    transition: all .4s;
+    box-shadow: 0 0 20px rgba(0, 0, 255, 0.2);
+}
+
+.btn.btn-post:hover {
+    background-color: #5d4681;
+    box-shadow: 0 0 20px rgba(0, 0, 255, 0.6);
+    color: white;
+}
+
+/* Custom expand and collapse functions */
+.btn-scale-up:hover {
+    transition: transform 1s ease;
+    transform: scale(1.05);
+  }
+  
+.btn-scale-down:hover {
+    transition: transform 1s ease;
+    transform: scale(0.95);
+}
+
+/* Custom listing buttons */
+.btn.btn-listing {
+    background-color: #6f5499;
+    color: white;
+    transition: all .4s;
+    background-image: linear-gradient(to bottom, #6f5499, #3b5dc9);
+}
+
+.btn.btn-listing:hover,
+.btn.btn-listing[aria-expanded="true"] {
+    background-image: radial-gradient(circle, #6f5499, #3b5dc9);
+    color: white;
+}
+
+/* Make the craigslist logo fit */ 
+.craigslist-logo {
+    width: 200px;
+    height: auto;
+}
+
+/* Event calendar CSS */
+#event-calendar {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#event-calendar td,
+#event-calendar th {
+    width: calc(100% / 7);
+    text-align: center;
+    vertical-align: middle;
+    padding: 4px;
+    font-size: 0.9rem;
+}
+
+#event-calendar a {
+    display: block;
+    padding: 4px;
+    border-radius: 50%;
+    text-decoration: none;
+}
+
+#event-calendar a:hover {
+    background-color: #f5f5f5;
+}
+
+/* Info message, instead of using alert() */
+#message {
+    background-color: lightyellow;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: none;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center */
+    z-index: 9999;
+}
+
+.geo-sublinks-container {
+    position: relative;
+}
+
+.geo-sublinks-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    transition: box-shadow 0.3s;
+    cursor: pointer;
+}
+
+/* Adds margin to the right of the globe icon */
+.globe-icon {
+    margin-right: 10px;
+}
+
+/* Adds margin to the left of the custom arrow icon */
+.ny-arrow-icon {
+    margin-left: 10px;
+}
+
+/* Centers the "Sublinks" text */
+.sublinks-text {
+    flex-grow: 1;
+    text-align: center;
+}
+
+/* Highlight effect on hover */
+.geo-sublinks-container:hover .hitbox-highlight {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Hitbox highlight for New York H2 */
+.hitbox-highlight {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    z-index: -1;
+    transition: background-color 0.3s;
+    border-radius: 20px;
+}
+
+/* Modernized links */
+.modern-links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #007bff;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #f8f9fa;
+    margin-bottom: 2px;
+}
+.modern-links a i {
+    margin-left: 5px;
+}
+.modern-links a:hover {
+    background-color: #e9ecef;
+}
+
+/* Listing icon to the left, text centered, arrow icon to the right */
+#middle-column .btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#middle-column .btn i {
+    margin-right: 5px;
+}
+
+/* Used for toggling the dropdown menu arrow icon up or down depending the collapsed state */
+.arrow-icon {
+    transition: transform 0.3s;
+}
+.expanded {
+    transform: rotate(180deg);
+}
+
+
+/* Keep the footer on the bottom of the page */
+footer {
+    margin-top: auto;
+}
+
+/* Footer font */
+.smaller-font {
+    font-size: 0.75rem;
+}
+
+@media (max-width: 992px) {
+    .btn-floating-mobile {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 9999;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      font-size: 20px;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+  
+    .btn-floating-mobile:hover {
+      opacity: 1;
+    }
+  }
