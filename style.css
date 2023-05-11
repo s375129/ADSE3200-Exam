@@ -206,6 +206,11 @@ footer {
 /* Hide scroll to top button on smaller screens */
 @media (max-width: 992px) {
     #scrollToTopBtn {
-        display: none;
+        display: none !important;
+    }
+
+    .row .col-sm-6 {
+        flex: none;
+        max-width: 50%;
     }
 }
